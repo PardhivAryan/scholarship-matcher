@@ -225,17 +225,5 @@ Once the server is running:
 
 ---
 
-# 👨‍💻 **How to Extend This Project**
-* Add admin authentication
-* Add email verification
-* Add a React or Next.js frontend
-* Deploy using AWS ECS / Render / Railway
-* Add Redis cache for match results
-* Add pagination + filtering
-
-If you want, I can generate any of these upgrades.
-
----
-
 # 🏁 **License**
 Free for learning & personal projects.

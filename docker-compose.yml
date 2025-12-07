@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    container_name: fastapi-app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/scholarshipdb
+      JWT_SECRET: supersecretkey
+      ES_HOST: http://elasticsearch:9200
+      ES_INDEX: scholarships-index
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: scholarshipdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    platform: linux/arm64
+    ports:
+      - "9200:9200"
+
+volumes:
+  pgdata:
